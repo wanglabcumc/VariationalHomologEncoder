@@ -48,7 +48,7 @@ class Homo_Model_243(object):
 		self.prot_mu = BN_Dense("prot_mu", is_training, model_hidden, prot_latent_rep)
 		self.prot_var = BN_Dense("prot_var", is_training, model_hidden, prot_latent_rep)
 
-		self.decoder = Sample_RNN([81, 27, 9, 3], 1, model_hidden, True, 22, self.batch_size * (self.clust_size - 1),
+		self.decoder = Sample_RNN(is_training, [81, 27, 9, 3], 1, model_hidden, True, 22, self.batch_size * (self.clust_size - 1),
 									self.max_seq_len, global_conditioning = True, global_latent_size = prot_latent_rep, up_factor = 3)
 
 	def one_hot(self, x):
@@ -221,5 +221,5 @@ def homo_train(log_dir, log_subdir, do_restore = False, file_to_restore = None):
 		print("Done saving checkpoint. Model should now quit.")
 
 if __name__ == "__main__":
-	log_dir, log_subdir = setup_log("test_vae_")
+	log_dir, log_subdir = setup_log("train_vae_")
 	homo_train(log_dir, log_subdir)

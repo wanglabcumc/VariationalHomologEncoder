@@ -1,5 +1,26 @@
 import os, sys
 
+"""Fasta files are expected to look like this ("..." to indicate amino acids omitted for space)...
+
+>34e6ee6_34e6ee6
+MAKE...KA*
+>34e6ee6_f2648d
+MAKE...RT*
+>34e6ee6_f10e9a
+MAKD...RI*
+>34e6ee6_10b54d2
+MIKD...KA*
+>3646962_3646962
+MFLK...DE*
+>3646962_21cf7e3
+MWIK...ED*
+
+So each ID is composed of two parts... the representative, and the protein ID (I use hexadecimal counters for the protein/rep IDs).
+So 34e6ee6_34e6ee6 says the protein ID is the same as representative (so it is the representative of the cluster).
+But 34e6ee6_f2648d says the protein ID is f2648d and its representative is still same.
+You'll note that the proteins have "*" at the end and only letters in amino acid alphabet are permitted.
+"""
+
 if sys.version_info > (3, 0):
 	import queue as Q
 else:

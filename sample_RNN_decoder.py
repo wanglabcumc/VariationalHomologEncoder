@@ -3,10 +3,10 @@ import numpy as np
 
 from frames import *
 from upsampling import *
-from BN_layers import BN_dense
+from BN_layers import BN_Dense
 
 class Sample_RNN(object):
-	def __init__(self, frame_sizes, n_rnn, hidden_size, learn_h0, input_channels, batch_size, max_prot_len, global_conditioning = False, global_latent_size = 512, up_factor = 4):
+	def __init__(self, is_training, frame_sizes, n_rnn, hidden_size, learn_h0, input_channels, batch_size, max_prot_len, global_conditioning = False, global_latent_size = 512, up_factor = 4):
 		self.hidden_size = hidden_size
 		self.input_channels = input_channels
 		self.batch_size = batch_size
@@ -28,12 +28,12 @@ class Sample_RNN(object):
 			self.frame_level_rnns.append(Frame_Level_RNN("tier_%i" %(tier_count + 1), self.input_channels, frame_size, n_rnn, hidden_size, batch_size, max_prot_len, up_factor = self.up_factor))
 
 			if self.global_conditioning:
-				self.global_dense[tier_count] = BN_dense("global_dense_%i" %(tier_count), global_latent_size, self.up_factor * hidden_size)
+				self.global_dense[tier_count] = BN_Dense("global_dense_%i" %(tier_count), is_training, global_latent_size, self.up_factor * hidden_size)
 
 			tier_count += 1
 
 		if self.global_conditioning:
-			self.global_dense[-1] = BN_dense("global_dense_top", global_latent_size, self.up_factor * hidden_size)
+			self.global_dense[-1] = BN_Dense("global_dense_top", is_training, global_latent_size, self.up_factor * hidden_size)
 
 		self.sample_level_mlp = Sample_Level_Wave("tier_0", frame_sizes[-1], hidden_size, input_channels)
 
