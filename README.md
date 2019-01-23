@@ -1,5 +1,5 @@
 # VariationalHomologEncoder
-Repo for the ICML 2018 Computational Biology Workshop paper, "The Variational Homolog Encoder".
+Repo for the ICML 2018 Computational Biology Workshop paper, "The Variational Homolog Encoder": [paper here](https://drive.google.com/file/d/1PpJqhqnruOdTas5uPWruinwVSWSprJcG/view)
 
 Code is written in Tensorflow v1.2, seems to work fine with v1.4. Code should be compatible in both Python 2.7 and Python 3.
 
